@@ -1,0 +1,38 @@
+// Text Clipping ========================================================================================================================================================
+%textClipping {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+//========================================================================================================================================================
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: rem(6) rem(20);
+  min-width: rem(100);
+  background: $BackgroundButtonNormal;
+  border-radius: rem(80);
+  transition: all 0.3s;
+  @media (any-hover: hover) {
+    &:hover {
+      background: $BackgroundButtonHover;
+    }
+  }
+  &._disabled {
+    background: $BackgroundButtonDisabled;
+    pointer-events: none;
+    color: $BackgroundColor;
+  }
+}
+//========================================================================================================================================================
+.title {
+  text-align: center;
+  font-size: rem(40);
+  line-height: 100%; /* 40/40 */
+}
+//========================================================================================================================================================
+.text {
+  line-height: 162.5%; /* 26/16 */
+}

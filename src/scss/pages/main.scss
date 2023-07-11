@@ -1,0 +1,51 @@
+//========================================================================================================================================================
+.test {
+  // .test__container
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      object-fit: cover;
+      z-index: 2;
+      filter: brightness(0.5);
+      @include adaptiveValue('padding-right', 15, -15, 0, 1440, 1024);
+      @include adaptiveValue('padding-left', 15, -15, 0, 1440, 1024);
+    }
+  }
+  // .test__body
+  &__body {
+  }
+}
+.body-test {
+  text-align: center;
+  position: relative;
+  max-width: rem(380);
+  @include adaptiveValue('margin-top', 164, 40);
+  @include adaptiveValue('margin-bottom', 164, 70);
+  z-index: 3;
+  // .body-test__title
+  &__title {
+    color: #fff;
+    &:not(:last-child) {
+      margin-bottom: rem(21);
+    }
+  }
+  // .body-test__text
+  &__text {
+    color: #fff;
+    &:not(:last-child) {
+      margin-bottom: rem(32);
+    }
+  }
+  // .body-test__button
+  &__button {
+  }
+}

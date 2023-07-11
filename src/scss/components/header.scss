@@ -1,0 +1,32 @@
+.header {
+  // .header__container
+  &__container {
+    padding-top: rem(13);
+    padding-bottom: rem(13);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: rem(14);
+  }
+  // .header__logo
+  &__logo {
+    display: flex;
+    align-items: center;
+    h2 {
+      text-transform: uppercase;
+      @include adaptiveValue('font-size', 16, 14);
+    }
+  }
+  // .header__actions
+  &__actions {
+    display: flex;
+    gap: rem(10);
+  }
+  // .header__button
+  &__button {
+    &.active {
+      pointer-events: none;
+      background-color: $BackgroundButtonHover;
+    }
+  }
+}

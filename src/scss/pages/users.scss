@@ -1,0 +1,84 @@
+//========================================================================================================================================================
+.get {
+  // .get__container
+  &__container {
+    padding-top: rem(140);
+    padding-bottom: rem(70);
+    display: grid;
+    justify-items: center;
+    gap: rem(50);
+  }
+  // .get__title
+  &__title {
+  }
+  // .get__items
+  &__items {
+    width: 100%;
+    display: grid;
+    @include adaptiveValue('gap', 29, 16, 2, 1024, 360);
+    @media (min-width: $pc) {
+      grid-template-columns: repeat(auto-fill, minmax(rem(370), 1fr));
+    }
+    @media (max-width: $pc) {
+      grid-template-columns: repeat(auto-fill, minmax(rem(282), 1fr));
+    }
+    @media (max-width: em(360)) {
+      gap: rem(20);
+    }
+  }
+  // .get__item
+  &__item {
+    padding: rem(20);
+    background-color: #fff;
+  }
+  // .get__button
+  &__button {
+    &.hidden {
+      display: none;
+    }
+  }
+}
+.item-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  // .item-body__image
+  &__image {
+    position: relative;
+    width: rem(70);
+    height: rem(70);
+    border-radius: 50%;
+    overflow: hidden;
+    &:not(:last-child) {
+      margin-bottom: rem(20);
+    }
+    img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      object-fit: cover;
+    }
+  }
+  // .item-body__name
+  &__name {
+    &:not(:last-child) {
+      margin-bottom: rem(20);
+    }
+    @extend %textClipping;
+  }
+  // .item-body__position
+  &__position {
+    @extend %textClipping;
+  }
+  // .item-body__email
+  &__email {
+    @extend %textClipping;
+  }
+  // .item-body__phone
+  &__phone {
+    @extend %textClipping;
+  }
+}

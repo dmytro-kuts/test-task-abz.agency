@@ -1,0 +1,7 @@
+.footer {
+  // .footer__container
+  &__container {
+    @include adaptiveValue('padding-top', 24, 12);
+    @include adaptiveValue('padding-bottom', 24, 12);
+  }
+}

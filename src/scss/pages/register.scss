@@ -1,0 +1,17 @@
+//========================================================================================================================================================
+.post {
+  // .post__container
+  &__container {
+    padding-top: rem(70);
+    padding-bottom: rem(100);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  // .post__title
+  &__title {
+    &:not(:last-child) {
+      margin-bottom: rem(50);
+    }
+  }
+}
