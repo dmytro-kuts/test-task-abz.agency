@@ -1,13 +1,15 @@
 import React from 'react';
-import { User } from '../components/User';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { User } from '../components/User';
+import { Preloader } from '../components/Preloader';
 
 import { getUsers, setCurrentPage } from '../redux/slices/user/userSlice';
 
 export const UsersPage = () => {
   const dispatch = useDispatch();
 
-  const { users, currentPage, totalPages } = useSelector((state) => state.user);
+  const { users, currentPage, totalPages, isLoading } = useSelector((state) => state.user);
 
   const showMoreUsers = () => {
     try {
@@ -30,14 +32,18 @@ export const UsersPage = () => {
             <User key={user.id} user={user} />
           ))}
         </div>
-        <button
-          onClick={showMoreUsers}
-          className={
-            currentPage === totalPages ? 'get__button button hidden' : 'get__button button'
-          }
-        >
-          Show more
-        </button>
+        {isLoading ? (
+          <Preloader />
+        ) : (
+          <button
+            onClick={showMoreUsers}
+            className={
+              currentPage === totalPages ? 'get__button button hidden' : 'get__button button'
+            }
+          >
+            Show more
+          </button>
+        )}
       </div>
     </section>
   );

@@ -7,6 +7,7 @@ const initialState = {
   positions: [],
   token: null,
   isLoading: false,
+  isPendingRequest: false,
   status: null,
 };
 
@@ -60,28 +61,21 @@ export const authSlice = createSlice({
     });
 
     // Get Me Token
-    builder.addCase(getMeToken.pending, (state) => {
-      state.isLoading = true;
-    });
     builder.addCase(getMeToken.fulfilled, (state, action) => {
-      state.isLoading = false;
       state.token = action.payload?.token;
-    });
-    builder.addCase(getMeToken.rejected, (state) => {
-      state.isLoading = false;
     });
 
     // Register User
     builder.addCase(registerUser.pending, (state) => {
-      state.isLoading = true;
+      state.isPendingRequest = true;
       state.status = null;
     });
     builder.addCase(registerUser.fulfilled, (state, action) => {
-      state.isLoading = false;
+      state.isPendingRequest = false;
       state.status = action.payload?.success;
     });
     builder.addCase(registerUser.rejected, (state) => {
-      state.isLoading = false;
+      state.isPendingRequest = false;
     });
   },
 });

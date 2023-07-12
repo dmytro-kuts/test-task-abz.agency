@@ -1,12 +1,14 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { Preloader } from '../components/Preloader';
+
 import { getPositions, getMeToken, registerUser } from '../redux/slices/auth/authSlice';
 
 export const Form = () => {
   const dispatch = useDispatch();
 
-  const { positions, token } = useSelector((state) => state.auth);
+  const { positions, token, isLoading, isPendingRequest } = useSelector((state) => state.auth);
 
   const [userName, setUserName] = React.useState('');
   const [email, setEmail] = React.useState('');
@@ -39,7 +41,10 @@ export const Form = () => {
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
-    if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,8})+$/.test(e.target.value)) {
+    const emailPattern =
+      /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
+
+    if (!emailPattern.test(e.target.value)) {
       setEmailError('Please enter a valid email');
     } else {
       setEmailError('');
@@ -212,19 +217,22 @@ export const Form = () => {
 
       <div className="form__item-checkbox item-checkbox">
         <h3 className="item-checkbox__title">Select your position</h3>
-
-        {positions.map((position) => (
-          <label key={position.id} className="item-checkbox__label">
-            <input
-              type="radio"
-              name="position"
-              value={position.id}
-              onChange={handlePositionChange}
-              checked={position.isSelected}
-            />
-            <span>{position.name}</span>
-          </label>
-        ))}
+        {isLoading ? (
+          <Preloader />
+        ) : (
+          positions.map((position) => (
+            <label key={position.id} className="item-checkbox__label">
+              <input
+                type="radio"
+                name="position"
+                value={position.id}
+                onChange={handlePositionChange}
+                checked={position.isSelected}
+              />
+              <span>{position.name}</span>
+            </label>
+          ))
+        )}
       </div>
 
       <div className="form__item">
@@ -242,14 +250,18 @@ export const Form = () => {
       </div>
 
       <div className="form__actions">
-        <button
-          type="button"
-          onClick={handleSubmit}
-          className={formValid ? 'form__button button' : 'form__button button _disabled'}
-          disabled={!formValid}
-        >
-          Sign Up
-        </button>
+        {isPendingRequest ? (
+          <Preloader />
+        ) : (
+          <button
+            type="button"
+            onClick={handleSubmit}
+            className={formValid ? 'form__button button' : 'form__button button _disabled'}
+            disabled={!formValid}
+          >
+            Sign Up
+          </button>
+        )}
       </div>
     </form>
   );

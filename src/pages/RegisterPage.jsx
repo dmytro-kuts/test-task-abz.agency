@@ -6,6 +6,7 @@ import { Form } from '../components/Form';
 import { Success } from '../components/Success';
 
 import { setStatusDefault } from '../redux/slices/auth/authSlice';
+import { setStateCleaning } from '../redux/slices/user/userSlice';
 
 export const RegisterPage = () => {
   const dispatch = useDispatch();
@@ -16,8 +17,9 @@ export const RegisterPage = () => {
   React.useEffect(() => {
     if (status) {
       const timer = setTimeout(() => {
-        navigate('/users');
         dispatch(setStatusDefault());
+        dispatch(setStateCleaning());
+        navigate('/users');
       }, 1500);
 
       return () => clearTimeout(timer);
