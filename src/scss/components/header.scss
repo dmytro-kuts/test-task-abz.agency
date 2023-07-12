@@ -12,10 +12,10 @@
   &__logo {
     display: flex;
     align-items: center;
-    max-width: rem(39);
-    max-height: rem(26);
     img {
       transition: all 0.3s;
+      width: rem(39);
+      height: rem(26);
     }
     h2 {
       text-transform: uppercase;
