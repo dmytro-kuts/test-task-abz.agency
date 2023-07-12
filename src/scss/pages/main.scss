@@ -31,6 +31,7 @@
   @include adaptiveValue('min-height', 650, 500, 0, 1024, 768);
 
   @include adaptiveValue('padding-top', 164, 40);
+  padding-bottom: rem(40);
   z-index: 3;
   // .body-test__title
   &__title {
