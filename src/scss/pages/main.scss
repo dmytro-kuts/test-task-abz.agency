@@ -16,8 +16,8 @@
       object-fit: cover;
       z-index: 2;
       filter: brightness(0.5);
-      @include adaptiveValue('padding-right', 15, -15, 0, 1440, 1024);
-      @include adaptiveValue('padding-left', 15, -15, 0, 1440, 1024);
+      @include adaptiveValue('padding-right', 15, -16, 0, 1440, 1024);
+      @include adaptiveValue('padding-left', 15, -16, 0, 1440, 1024);
     }
   }
   // .test__body
@@ -26,10 +26,11 @@
 }
 .body-test {
   text-align: center;
-  position: relative;
-  max-width: rem(380);
-  @include adaptiveValue('margin-top', 164, 40);
-  @include adaptiveValue('margin-bottom', 164, 70);
+  // position: relative;
+  @include adaptiveValue("max-width", 380, 370, 0, 1024, 768);
+  @include adaptiveValue('min-height', 650, 500, 0, 1024, 768);
+
+  @include adaptiveValue('padding-top', 164, 40);
   z-index: 3;
   // .body-test__title
   &__title {
@@ -41,9 +42,11 @@
   // .body-test__text
   &__text {
     color: #fff;
+    line-height: 162.5%; /* 26/16 */
     &:not(:last-child) {
       margin-bottom: rem(32);
     }
+
   }
   // .body-test__button
   &__button {

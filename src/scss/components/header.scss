@@ -12,9 +12,26 @@
   &__logo {
     display: flex;
     align-items: center;
+    max-width: rem(39);
+    max-height: rem(26);
+    img {
+      transition: all 0.3s;
+    }
     h2 {
       text-transform: uppercase;
       @include adaptiveValue('font-size', 16, 14);
+    }
+    @media (any-hover: hover) {
+      &:hover {
+        img {
+          transform: translate(0px, rem(-2));
+        }
+      }
+    }
+    @media (max-width: em(359)) {
+      h2 {
+        display: none;
+      }
     }
   }
   // .header__actions

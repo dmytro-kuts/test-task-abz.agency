@@ -44,7 +44,12 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-
+  transition: box-shadow 0.3s;
+@media (any-hover: hover){
+  &:hover{
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+}
   // .item-body__image
   &__image {
     position: relative;
