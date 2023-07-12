@@ -2,94 +2,39 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Preloader } from '../components/Preloader';
-
 import { getPositions, getMeToken, registerUser } from '../redux/slices/auth/authSlice';
+
+import useForm from '../hooks/useForm';
 
 export const Form = () => {
   const dispatch = useDispatch();
 
   const { positions, token, isLoading, isPendingRequest } = useSelector((state) => state.auth);
 
-  const [userName, setUserName] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [phone, setPhone] = React.useState('');
-  const [position, setPosition] = React.useState('');
-  const [photo, setPhoto] = React.useState('');
-
-  const [userNameError, setUserNameError] = React.useState('');
-  const [emailError, setEmailError] = React.useState('');
-  const [phoneError, setPhoneError] = React.useState('');
-  const [photoError, setPhotoError] = React.useState('');
-  const [positionError, setPositionError] = React.useState('');
+  const {
+    userName,
+    email,
+    phone,
+    position,
+    photo,
+    userNameError,
+    setUserNameError,
+    emailError,
+    setEmailError,
+    phoneError,
+    setPhoneError,
+    photoError,
+    setPhotoError,
+    positionError,
+    setPositionError,
+    handleNameChange,
+    handleEmailChange,
+    handlePhoneChange,
+    handlePositionChange,
+    handlePhotoChange,
+  } = useForm();
 
   const [formValid, setFormValid] = React.useState(false);
-
-  const handleNameChange = (e) => {
-    const userName = e.target.value;
-    setUserName(userName);
-
-    if (!/^[A-Za-z]{2}[A-Za-z\s]*$/.test(userName)) {
-      setUserNameError('Username should contain only Latin characters');
-    } else if (userName.length < 2 || userName.length > 60) {
-      setUserNameError('Username should be 2-60 characters');
-    } else if (!/^[A-Z]/.test(userName)) {
-      setUserNameError('Username should start with a capital letter');
-    } else {
-      setUserNameError('');
-    }
-  };
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-    const emailPattern =
-      /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
-
-    if (!emailPattern.test(e.target.value)) {
-      setEmailError('Please enter a valid email');
-    } else {
-      setEmailError('');
-    }
-  };
-
-  const handlePhoneChange = (e) => {
-    setPhone(e.target.value);
-    if (!/^(\+380)\d{9}$/.test(e.target.value)) {
-      setPhoneError('Phone number should start with +380');
-    } else {
-      setPhoneError('');
-    }
-  };
-
-  const handlePositionChange = (e) => {
-    const selectedPositionId = e.target.value;
-
-    if (selectedPositionId) {
-      setPositionError('');
-      setPosition(selectedPositionId);
-    } else {
-      setPositionError('Please select a position');
-    }
-  };
-
-  const handlePhotoChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const image = new Image();
-      image.src = URL.createObjectURL(file);
-      image.onload = () => {
-        if (image.width < 70 || image.height < 70) {
-          setPhotoError('Minimum size of photo should be 70x70px');
-        } else if (file.type !== 'image/jpeg' && file.type !== 'image/jpg') {
-          setPhotoError('Photo format should be JPEG/JPG');
-        } else if (file.size > 5 * 1024 * 1024) {
-          setPhotoError('Photo size must not exceed 5MB');
-        } else {
-          setPhotoError('');
-          setPhoto(file);
-        }
-      };
-    }
-  };
 
   const fieldsValidation = (e) => {
     e.preventDefault();
@@ -139,7 +84,6 @@ export const Form = () => {
       console.log(error);
     }
   };
-
   React.useEffect(() => {
     dispatch(getPositions());
     dispatch(getMeToken());
@@ -185,7 +129,6 @@ export const Form = () => {
           autoComplete="on"
         />
       </div>
-
       <div className="form__item">
         {emailError && <span className="form__error">{emailError}</span>}
         <input
@@ -210,7 +153,7 @@ export const Form = () => {
           className={phoneError ? 'form__input _error' : 'form__input'}
           autoComplete="on"
         />
-        <label htmlFor="phone" className="form__lable">
+        <label htmlFor="phone" className="form__label">
           +380 (XXX) XXX - XX - XX
         </label>
       </div>
