@@ -21,12 +21,10 @@ export const registerUser = createAsyncThunk('auth/registerUser', async ({ formD
   try {
     const { data } = await axios.post('/users', formData, { headers: { Token: token } });
 
-    console.log(data);
-
     return data;
   } catch (error) {
     if (!error.response.data.status) {
-      toast.error(error.response.data.message)
+      toast.error(error.response.data.message);
     }
   }
 });

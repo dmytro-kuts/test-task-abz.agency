@@ -9,6 +9,10 @@ import useForm from '../hooks/useForm';
 export const Form = () => {
   const dispatch = useDispatch();
 
+  const [isNameFocused, setIsNameFocused] = React.useState(false);
+  const [isEmailFocused, setIsEmailFocused] = React.useState(false);
+  const [isPhoneFocused, setIsPhoneFocused] = React.useState(false);
+
   const { positions, token, isLoading, isPendingRequest } = useSelector((state) => state.auth);
 
   const {
@@ -120,42 +124,70 @@ export const Form = () => {
       <div className="form__item">
         {userNameError && <span className="form__error">{userNameError}</span>}
         <input
-          name="name"
+          id="name"
           type="text"
           value={userName}
           onChange={handleNameChange}
-          placeholder="Your name"
+          onFocus={() => setIsNameFocused(true)}
+          onBlur={() => setIsNameFocused(false)}
           className={userNameError ? 'form__input _error' : 'form__input'}
-          autoComplete="on"
+          autoComplete="none"
         />
+        <label
+          htmlFor="name"
+          className={`form__label ${isNameFocused || userName ? '_focused' : ''} ${
+            userNameError ? '_error' : ''
+          }`}
+        >
+          Your name
+        </label>
       </div>
       <div className="form__item">
         {emailError && <span className="form__error">{emailError}</span>}
         <input
-          name="email"
+          id="email"
           type="email"
           value={email}
-          placeholder="Email"
           onChange={handleEmailChange}
+          onFocus={() => setIsEmailFocused(true)}
+          onBlur={() => setIsEmailFocused(false)}
           className={emailError ? 'form__input _error' : 'form__input'}
-          autoComplete="on"
+          autoComplete="none"
         />
+        <label
+          htmlFor="email"
+          className={`form__label ${isEmailFocused || email ? '_focused' : ''} ${
+            emailError ? '_error' : ''
+          }`}
+        >
+          Email
+        </label>
       </div>
 
       <div className="form__item">
-        {phoneError && <span className="form__error">{phoneError}</span>}
         <input
-          type="tel"
           id="phone"
-          placeholder="Phone"
+          type="tel"
           value={phone}
           onChange={handlePhoneChange}
+          onFocus={() => setIsPhoneFocused(true)}
+          onBlur={() => setIsPhoneFocused(false)}
           className={phoneError ? 'form__input _error' : 'form__input'}
-          autoComplete="on"
+          autoComplete="none"
         />
-        <label htmlFor="phone" className="form__label">
-          +380 (XXX) XXX - XX - XX
+        <label
+          htmlFor="phone"
+          className={`form__label ${isPhoneFocused || phone ? '_focused' : ''} ${
+            phoneError ? '_error' : ''
+          }`}
+        >
+          Phone
         </label>
+        {phoneError ? (
+          <span className="form__error">{phoneError}</span>
+        ) : (
+          <div className="form__sub-label">+380 (XXX) XXX - XX - XX</div>
+        )}
       </div>
 
       <div className="form__item-checkbox item-checkbox">

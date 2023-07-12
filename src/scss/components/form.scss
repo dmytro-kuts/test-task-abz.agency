@@ -19,35 +19,42 @@
     padding: rem(14) rem(16);
     border-radius: rem(4);
     border: rem(1) solid #d0cfcf;
-    background: $BackgroundColor;
+    background: inherit;
     transition: all 0.3s;
+    
     @media (min-width: em(410)) {
       min-width: rem(380);
     }
     @media (max-width: em(410)) {
       width: 100%;
     }
-    &::before {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-    }
-    &::placeholder {
-      color: #7e7e7e;
-    }
     &._error {
       border: rem(1) solid $ColorError;
       color: $ColorError;
-      &::placeholder {
-        color: $ColorError;
-      }
+
     }
   }
   // .form__label
   &__label {
+    position: absolute;
+    top: 50%;
+    left: rem(12);
+    transform: translate(0px, -50%);
+    pointer-events: none;
+    transition: all 0.3s;
+    color: #7e7e7e;
+    background: $BackgroundColor;
+    padding: rem(0) rem(4);
+    border-radius: rem(4);
+    &._focused{
+      top: 0;
+    }
+    &._error{
+      color: $ColorError;
+    }
+  }
+  // .form__label
+  &__sub-label {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -61,7 +68,7 @@
     position: absolute;
     width: fit-content;
     height: rem(20);
-    top: -50%;
+    bottom: -40%;
     left: rem(16);
     padding-top: rem(4);
     color: $ColorError;

@@ -15,9 +15,11 @@ const useForm = () => {
 
   const handleNameChange = (e) => {
     const userName = e.target.value;
+    const userNamePattern = /^[A-Za-z]{2}[A-Za-z\s]*$/
+
     setUserName(userName);
 
-    if (!/^[A-Za-z]{2}[A-Za-z\s]*$/.test(userName)) {
+    if (!userNamePattern.test(userName)) {
       setUserNameError('Username should contain only Latin characters');
     } else if (userName.length < 2 || userName.length > 60) {
       setUserNameError('Username should be 2-60 characters');
@@ -29,10 +31,12 @@ const useForm = () => {
   };
 
   const handleEmailChange = (e) => {
-    setEmail(e.target.value);
+    const email = e.target.value
     const emailPattern = /^[a-z0-9]+([.-]?[a-z0-9]+)*@[a-z0-9]+([.-]?[a-z0-9]+)*(\.[a-z]{2,8})+$/;
 
-    if (!emailPattern.test(e.target.value)) {
+    setEmail(email);
+
+    if (!emailPattern.test(email)) {
       setEmailError('Please enter a valid email');
     } else {
       setEmailError('');
@@ -40,9 +44,13 @@ const useForm = () => {
   };
 
   const handlePhoneChange = (e) => {
-    setPhone(e.target.value);
-    if (!/^(\+380)\d{9}$/.test(e.target.value)) {
-      setPhoneError('Phone number should start with +380');
+    const phoneNumber = e.target.value;
+    const phonePattern = /^(\+380)\d{9}$/
+
+    setPhone(phoneNumber);
+  
+    if (!phonePattern.test(phoneNumber)) {
+      setPhoneError('Must start with +380 and have 13 digits');
     } else {
       setPhoneError('');
     }
